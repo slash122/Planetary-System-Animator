@@ -1,0 +1,14 @@
+#main-container {
+    display: flex;
+    flex:auto
+}
+
+#canvas {
+    background-color: aquamarine;
+}
+
+#form-container {
+    background-color: red;
+    height: 100px;
+    width: 100px;
+}
