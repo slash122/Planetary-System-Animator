@@ -3,13 +3,8 @@ let context = canvas.getContext("2d");
 
 console.log(canvas);
 
-//canvas.style.background = "#ff8";
-
-let window_height = window.innerHeight;
-let window_width = window.innerWidth;
-
 canvas.width = 1000;
-canvas.height = 800;
+canvas.height = 850;
 
 context.fillStyle = "red";
 context.fillRect(0, 0, 200, 200);
@@ -17,17 +12,15 @@ context.fillRect(0, 0, 200, 200);
 let xPos = 300, yPos = 300;
 let dx = 2, dy = 2;
 
-// let dAlpha = 2 * Math.PI / 720;
-// let dBeta = 2 * Math.PI / 720;
-// let Alpha = 0, Beta = 0;
 
 class Planet {
-    constructor(id) {
+    constructor(id, distance, radius) {
         this.id = id;
-        this.distance = 50;
-        this.radius = 10;
+        this.distance = distance;
+        this.radius = radius;
         this.dAlpha = 2 * Math.PI / 720;
         this.alpha = 0;
+        this.satellites = [];
     }
 
     setDistance(distance) {
@@ -40,17 +33,39 @@ class Planet {
 
     draw(ctx) {
         const pos = this.getCurrentPosition();
-        drawCircle(ctx, "black", pos.x, pos.y, this.radius);
+        
+        drawOrbit(ctx, 500, 400, this.distance);
+        drawCircle(ctx, "black", 500 + pos.x, 400 + pos.y, this.radius);
+        
+        this.updateAlpha();
+        this.drawSatellites(ctx);
+    }
+
+    drawSatellites(ctx) {
+        this.satellites.forEach((satellite) => {
+            const sPos = satellite.getCurrentPosition();
+            const pos = this.getCurrentPosition();
+            
+            drawOrbit(ctx, 500 + pos.x, 400 + pos.y, satellite.distance);
+            drawCircle(ctx, "blue", 500 + pos.x + sPos.x, 400 + pos.y + sPos.y, satellite.radius);
+            
+            satellite.updateAlpha();
+        })
     }
 
     updateAlpha() {
-        alpha -= dAlpha;
-        if (alpha == -2 * Math.PI)
-            alpha = 0;
+        this.alpha -= this.dAlpha;
+        if ( Math.abs(this.alpha + 2  * Math.PI) < 0.001 ) {
+            this.alpha = 0;
+        }
     }
 
     getCurrentPosition() {
         return {x : Math.cos(this.alpha) * this.distance, y : Math.sin(this.alpha) * this.distance};
+    }
+
+    addSatellite(satellite) {
+        this.satellites.push(satellite);
     }
 }
 
@@ -64,39 +79,30 @@ function drawCircle(context, color, x, y, radius) {
     context.closePath();   
 }
 
-function redrawSquare() {
-    context.clearRect(0,0,canvas.width, canvas.height);
-    
-    //context.fillRect(400 + Math.cos(Alpha) * xPos, 300 + Math.sin(Alpha) * yPos, 200, 200);
-    drawCircle(context, "red", 500 + Math.cos(Alpha) * 200, 400 + Math.sin(Alpha) * 200, 100);
-    drawCircle(context, "green", 500 + Math.cos(Alpha) * 200 + Math.cos(Beta) * 150, 400 + Math.sin(Alpha) * 200 + Math.sin(Beta) * 150, 30);
-    // drawCircle(context, "blue", 500 + Math.cos(Alpha) * 200 + Math.cos(Beta) * 150 + Math.cos(Alpha) * 60, 
-    //             400 + Math.sin(Alpha) * 200 + Math.sin(Beta) * 150 + Math.sin(Alpha) * 60, 15);
-    Alpha -= dAlpha;
-    Beta -= dBeta;
-    
-    if (Alpha == -2 * Math.PI)
-        Alpha = 0;
-
-    if (Beta == -2 * Math.PI)
-        Beta = 0;
-    
-    // xPos+=dx; yPos+=dy;
-    
-    // if (xPos == 800 || xPos == 0) {
-    //     dx = -dx;
-    // }
-    
-    // if (yPos == 600 || yPos == 0) {
-    //     dy = -dy;
-    // }
-
-    
-
-    requestAnimationFrame(redrawSquare);  
+function drawOrbit(context, x, y, distance) {
+    context.strokeStyle = "black";
+    context.beginPath();
+    context.arc(x, y, distance, 0, 2 * Math.PI, true);
+    context.stroke();
+    context.closePath();
 }
 
-redrawSquare();
+const planets = [new Planet(1, 40, 10), new Planet(2, 100, 5), new Planet(3, 200, 20)];
+planets[1].dAlpha = 2*Math.PI / 600;
+planets[2].dAlpha = 2*Math.PI / 1000; 
+
+let test = new Planet(10, 20, 3);
+test.dAlpha = 2 * Math.PI / 180;
+planets[0].addSatellite(test);
+
+function redraw() {
+    context.clearRect(0,0,canvas.width, canvas.height);
+    
+    planets.forEach((planet) => {planet.draw(context)});
+
+    requestAnimationFrame(redraw);  
+}
+redraw();
 
 
 

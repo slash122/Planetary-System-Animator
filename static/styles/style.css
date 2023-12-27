@@ -1,14 +1,51 @@
+body {
+    margin: 0px;
+}
+
 #main-container {
     display: flex;
-    flex:auto
+    flex-wrap: wrap;
+}
+
+.box {
+    box-sizing: border-box;
+    width: 55%;
+    min-height: 100vh;
 }
 
 #canvas {
     background-color: aquamarine;
+    width: 100%;
+    height: auto;
 }
 
-#form-container {
-    background-color: red;
-    height: 100px;
-    width: 100px;
+#data-container {
+    background-color: rgb(202, 202, 202);
+    margin-left: 55%;
 }
+
+#canvas-container {
+    position: fixed;
+    height: 100%; /* Make the first box take up the full height of the viewport */
+    overflow-y: auto;
+    padding: 0px;
+}
+
+
+@media (max-width: 800px) {
+    .box {
+      width: 100%; /* Make the boxes take up 100% of the width */
+    }
+
+    #canvas-container {
+        position: fixed;
+        height: 100vh; /* Make the first box take up the full height of the viewport */
+        overflow-y: auto;
+    }
+
+    #data-container {
+        margin-left: 0%;
+    }
+
+}
+
