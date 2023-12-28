@@ -3,7 +3,6 @@ function getCurrentUrl() {
     return window.location.href;
 }
 
-
 function signIn() {
     url = getCurrentUrl();
     
@@ -62,6 +61,7 @@ function getEditor() {
         success: function(data) {
           // Handle the successful response
             document.getElementById('template-container').innerHTML = data;
+            stopDrawing();
         },
         error: function(jqXHR, textStatus, errorThrown) {
           // Handle errors

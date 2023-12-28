@@ -25,7 +25,11 @@ app.get('/signin', function(req, res) {
 });
 
 app.get('/profile', function(req, res) {
-  res.render('sign-up');
+  res.render('profile');
+})
+
+app.get('/editor', function(req, res) {
+  res.render('editor');
 })
 
 app.listen(port);
