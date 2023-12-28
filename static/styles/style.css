@@ -49,3 +49,13 @@ body {
 
 }
 
+/* Forms */
+
+.form-container {
+    width: 500px;
+    margin: 300px auto;
+    align-items: center;
+    justify-content: center;
+    background-color: tan;
+}
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas tutorial</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <div id="main-container">
+        
+        <div id="canvas-container" class="box">
+            <canvas id="canvas"></canvas>
+            <script src="/scripts/script.js"></script>
+        </div> 
+
+        <div id="data-container" class="box">
+            <div id="header">
+                <a id="profileLink" href="" onclick="getProfile()">Profile</a>
+                <a id="editorLink" href="" onclick="getEditor()">Editor</a>
+            </div>
+            <div id="template-container"> 
+            <% if (signIn == true) { %>
+                <!-- Render the user data template here -->
+                <%- include('sign-in') %>
+            <% } %>
+              
+            <% if (signIn == false) { %> <!-- Sign Up -->
+                <!-- Render the another template here -->
+                <%- include('sign-up') %>
+            <% } %>
+            <div>
+            <script src="/scripts/queries.js"></script>
+        </div>
+    </div>
+</body>
+</html>
