@@ -1,1 +1,15 @@
-<h1>KURWA CHUJ BLYAT</h1>
+<% if (user) { %>
+    <h1>Welcome <%= user.username %>, registration is successful!</h1>
+<% } else { %>
+<div class="form-container">
+    <form class="user-form">
+        <input id="username-field" type="text"><br>
+        <div id="username-error"></div>
+        <input id="password-field" type="text"><br>
+        <div id="password-error"></div>
+        <input type="button" value="submit" onclick="postSignUp()">
+    </form>
+    <h1>SIGN UP FORM</h1>
+    <input type="button" value="Have an account? Sign In" onclick="getSignIn()">
+</div>
+<% } %>

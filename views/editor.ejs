@@ -1,31 +1,33 @@
-<h1>EDITOR</h1>
-<div>
-    <div id="editor-planet-list">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas tutorial</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <div id="main-container">
+        
+        <div id="canvas-container" class="box">
+            <canvas id="canvas" width="1000" height="850"></canvas>
+        </div> 
+        <div id="data-container" class="box">
+            <div id="header">
+                <a href="/">Main page</a>
+            </div>
+            <div id="template-container"> 
+                <h1>EDITOR</h1>
+                <div id="editor-planet-list">
+
+                </div>
+                <input type="button" value="Add planet" onclick="addPlanet()">
+            </div>
+        </div>
     </div>
-    <input type="button" onclick="addPlanet()" value="Add Planet">
-</div>
-<script>
-const planetList = [];
-
-function addPlanet() {
-    planetList.push(new Planet(666, 10, 10));
-    renderList();
-    animationRequest = redraw(planetList);
-}
-
-function renderList() {
-    const container = document.getElementById('editor-planet-list');
-    container.innerHTML = '';
-    let count = 1;
-    container.innerHTML = '';
-    planetList.forEach((planet) => {
-        let planetDiv = `<div class="planetDiv">
-            <p class="planetCount">${count}</p>
-            <input type="button" value="Delete planet">
-            <input type="range" min="0" max="600" value="50" id="distanceRange">
-        </div>`;
-        count++;
-        container.innerHTML += planetDiv;
-    }); 
-}
-</script>
+    <script src="/scripts/planet.js"></script>
+    <script src="/scripts/editor.js"></script>
+    <script src="/scripts/queries.js"></script>
+</body>
+</html>

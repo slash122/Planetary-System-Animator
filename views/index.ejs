@@ -11,25 +11,24 @@
     <div id="main-container">
         
         <div id="canvas-container" class="box">
-            <canvas id="canvas"></canvas>
+            <canvas id="canvas" width="1000" height="850"></canvas>
             
         </div> 
 
         <div id="data-container" class="box">
             <div id="header">
-                <a id="profileLink" href="" onclick="getProfile()">Profile</a>
-                <a id="editorLink" href="" onclick="getEditor()">Editor</a>
+                <a id="profileLink" href="">Profile</a>
+                <a id="editorLink" href="/editor" >Editor</a>
+                
+                <% if (user) { %>
+                <a id="logoutLink" href="">Log out</a>
+                <% } else { %>
+                <a id="signinLink" href="">Sign in</a>
+                <% } %>
             </div>
             <div id="template-container"> 
-            <% if (signIn == true) { %>
-                <!-- Render the user data template here -->
-                <%- include('sign-in') %>
-            <% } %>
-              
-            <% if (signIn == false) { %> <!-- Sign Up -->
-                <!-- Render the another template here -->
-                <%- include('sign-up') %>
-            <% } %>
+                <%- include('sign-in') %> 
+                <!-- include sign-in by default -->
             <div>
             
         </div>
@@ -37,5 +36,6 @@
     
     <script src="/scripts/script.js"></script>
     <script src="/scripts/queries.js"></script>
+    
 </body>
 </html>

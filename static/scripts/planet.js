@@ -1,31 +1,7 @@
+//POPRAVIT
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-let animationRequest;
-
-function mainAnimation() {
-    console.log(canvas);
-
-    // canvas.width = 1000;
-    // canvas.height = 850;
-
-    const planets = [];
-    // const planets = [, , ];
-    planets.push(new Planet(1, 40, 10));
-    planets.push(new Planet(2, 100, 5));
-    planets.push(new Planet(3, 200, 20));
-
-    planets[1].dAlpha = 2*Math.PI / 600;
-    planets[2].dAlpha = 2*Math.PI / 1000; 
-
-    let test = new Planet(10, 20, 3);
-    test.dAlpha = 2 * Math.PI / 180;
-    planets[0].addSatellite(test);
-    
-    console.log(planets);
-    redraw(planets);
-}
-
-window.onload = mainAnimation;
+//
 
 class Planet {
     constructor(id, distance, radius) {
@@ -115,8 +91,3 @@ function stopDrawing() {
 
     context.clearRect(0,0,canvas.width, canvas.height);
 }
-
-
-
-
-
