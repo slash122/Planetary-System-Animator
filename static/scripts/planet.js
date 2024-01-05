@@ -1,15 +1,18 @@
 //POPRAVIT
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
+// const canvas = document.getElementById("canvas");
+// const context = canvas.getContext("2d");
 //
 
 class Planet {
-    constructor(id, distance, radius) {
-        this.id = id;
+    constructor(distance, radius, dAlpha, phase, color, hasRings) {
         this.distance = distance;
         this.radius = radius;
-        this.dAlpha = 2 * Math.PI / 720;
-        this.alpha = 0;
+        this.dAlpha = dAlpha;//2 * Math.PI / 720;
+        this.phase = phase;
+        this.color = color;
+        this.hasRings = hasRings;
+        
+        this.alpha = 0 + phase;
         this.satellites = [];
     }
 
@@ -25,10 +28,16 @@ class Planet {
         const pos = this.getCurrentPosition();
         
         drawOrbit(ctx, 500, 400, this.distance);
-        drawCircle(ctx, "black", 500 + pos.x, 400 + pos.y, this.radius);
+
+        if (this.hasRings === true){
+            drawRings(ctx, this.color, 500 + pos.x, 400 + pos.y, this.radius);
+        }
+
+        drawCircle(ctx, this.color, 500 + pos.x, 400 + pos.y, this.radius);
         
-        this.updateAlpha();
+        
         this.drawSatellites(ctx);
+        this.updateAlpha();
     }
 
     drawSatellites(ctx) {
@@ -37,7 +46,7 @@ class Planet {
             const pos = this.getCurrentPosition();
             
             drawOrbit(ctx, 500 + pos.x, 400 + pos.y, satellite.distance);
-            drawCircle(ctx, "blue", 500 + pos.x + sPos.x, 400 + pos.y + sPos.y, satellite.radius);
+            drawCircle(ctx, satellite.color, 500 + pos.x + sPos.x, 400 + pos.y + sPos.y, satellite.radius);
             
             satellite.updateAlpha();
         })
@@ -57,6 +66,11 @@ class Planet {
     addSatellite(satellite) {
         this.satellites.push(satellite);
     }
+
+    serialize() {
+        return {distance: this.distance, radius: this.radius, dAlpha: this.dAlpha, 
+            phase: this.phase, color: this.color, hasRings: this.hasRings, satellites: []};
+    }
 }
 
 function drawCircle(context, color, x, y, radius) {
@@ -70,11 +84,17 @@ function drawCircle(context, color, x, y, radius) {
 }
 
 function drawOrbit(context, x, y, distance) {
-    context.strokeStyle = "black";
+    context.strokeStyle = "white";
     context.beginPath();
     context.arc(x, y, distance, 0, 2 * Math.PI, true);
     context.stroke();
     context.closePath();
+}
+
+function drawRings(context, color, x, y, radius) {
+    ringsThickness = radius / 4; 
+    drawCircle(context, color, x, y, radius * 1.3 + ringsThickness);
+    drawCircle(context, '#030014', x, y, radius * 1.3); //PIZDECOWY KOSTYL
 }
 
 

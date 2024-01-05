@@ -2,11 +2,12 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const User = require('./models/User');
+const System = require('./models/System');
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const { requireAuth,  checkUser } = require('./authentication/auth');
+const { requireAuth,  checkUser, _checkUser } = require('./authentication/auth');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -60,7 +61,7 @@ const createToken = (id) => {
 
 const dbURI = 'mongodb+srv://1avrutin:1avrutin@tiproject.euzxkzp.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
-  .then((result) => console.log('Connect succesful'))
+  .then((result) => console.log('DB Connect succesful'))
   .catch((err) => console.log(err));
 
 app.get('*', checkUser);
@@ -72,7 +73,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/signin', function(req, res) {
-  res.render('sign-in');
+  res.render('content', {toRender: 'sign-in'});
 });
 
 app.post('/signin', async function(req, res) {
@@ -91,7 +92,7 @@ app.post('/signin', async function(req, res) {
 }); 
 
 app.get('/signup', function(req, res) {
-  res.render('sign-up');
+  res.render('content', {toRender: 'sign-up'});
 });
 
 app.post('/signup', async function(req, res) {
@@ -111,8 +112,18 @@ app.post('/signup', async function(req, res) {
   }
 });
 
-app.get('/profile', /*requireAuth,*/ function(req, res) {
-  res.render('profile');
+app.get('/profile', /*requireAuth,*/ async function(req, res) {
+  try {
+    let user = await _checkUser(req);
+    let userSystems = await System.find({userId: user._id});
+    res.locals.userSystems = userSystems;
+  }
+  catch (err) {
+    res.locals.userSystems = null;
+    console.log(err.message);
+  }
+  
+  res.render('content', {toRender: 'profile'});
 });
 
 app.get('/editor', function(req, res) {
@@ -122,6 +133,24 @@ app.get('/editor', function(req, res) {
 app.get('/logout', function(req, res) {
   res.cookie('jwt', '', {maxAge: 1});
   res.redirect('/signin');
+});
+
+app.post('/editor/savesystem', async function(req, res) {
+  try {
+    let system = req.body;
+    let user = await _checkUser(req);
+    if (user) {
+      system.userId = user._id;
+      await System.create(system);
+      res.status(201).json({systemName: 'System saved!'});
+    }
+    else {
+      throw new Error('JWT does not exist');
+    }
+  } 
+  catch (err) {
+    res.status(400).json({systemName: 'Could not save system'});
+  }  
 });
 
 app.listen(port);

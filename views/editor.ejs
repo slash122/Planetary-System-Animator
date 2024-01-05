@@ -18,6 +18,14 @@
                 <a href="/">Main page</a>
             </div>
             <div id="template-container"> 
+                <% if (user) { %> 
+                <form>
+                    <label for="sname">System name</label><br>
+                    <input type="text" id="sname" name="sname">
+                    <div id="save-error"></div>
+                    <input type="button" value="Save system" onclick="postSaveSystem()">
+                </form>
+                <% } %>
                 <h1>EDITOR</h1>
                 <div id="editor-planet-list">
 

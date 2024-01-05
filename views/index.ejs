@@ -16,26 +16,12 @@
         </div> 
 
         <div id="data-container" class="box">
-            <div id="header">
-                <a id="profileLink" href="">Profile</a>
-                <a id="editorLink" href="/editor" >Editor</a>
-                
-                <% if (user) { %>
-                <a id="logoutLink" href="">Log out</a>
-                <% } else { %>
-                <a id="signinLink" href="">Sign in</a>
-                <% } %>
-            </div>
-            <div id="template-container"> 
-                <%- include('sign-in') %> 
-                <!-- include sign-in by default -->
-            <div>
-            
+            <%- include('content', {toRender: 'sign-in'}) %>      
         </div>
     </div>
     
+    <script src="/scripts/planet.js"></script>
     <script src="/scripts/script.js"></script>
     <script src="/scripts/queries.js"></script>
-    
 </body>
 </html>

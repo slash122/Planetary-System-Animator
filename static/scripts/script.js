@@ -9,114 +9,23 @@ function mainAnimation() {
     // canvas.height = 850;
 
     const planets = [];
-    // const planets = [, , ];
-    planets.push(new Planet(1, 40, 10));
-    planets.push(new Planet(2, 100, 5));
-    planets.push(new Planet(3, 200, 20));
+    
+    planets.push(new Planet(0, 40, 0, 0, 'yellow', false)); //Solnce
+    planets.push(new Planet(55, 3, 2*Math.PI / 200, 0, '#8B0000', false)); //Merkurij
+    planets.push(new Planet(66, 4, 2*Math.PI / 400, 0, '#FFF3D7', false)); //Venera
+    planets.push(new Planet(94, 7, 2*Math.PI / 600, 0, '#2585FF', false)); //Zemlya
+    planets[planets.length - 1].addSatellite(new Planet(15, 2, 2*Math.PI / 180, 0, 'grey', false));  //Luna
+    planets.push(new Planet(120, 5, 2*Math.PI / 800, 0, '#E17800', false)); // Mars
+    planets.push(new Planet(200, 24, 2*Math.PI / 1800, 0, '#FFB460', false)); //Jupiter
+    planets.push(new Planet(265, 14, 2*Math.PI / 2200, -Math.PI/2, '#FFE3A4', true)); //Saturn
+    planets.push(new Planet(310, 10, 2*Math.PI / 3200, Math.PI/3, '#00A5A0', false)); //Uran
+    planets.push(new Planet(330, 8, 2*Math.PI / 4000, Math.PI/2, '#005AB4', false)); //Neptun
+    planets.push(new Planet(400, 2, 2*Math.PI / 6500, Math.PI, '#A59166', false)); //Pluton 
 
-    planets[1].dAlpha = 2*Math.PI / 600;
-    planets[2].dAlpha = 2*Math.PI / 1000; 
-
-    let test = new Planet(10, 20, 3);
-    test.dAlpha = 2 * Math.PI / 180;
-    planets[0].addSatellite(test);
+    //let test = new Planet(20, 3, 2*Math.PI / 180, 0, 'blue', false);
     
     console.log(planets);
     redraw(planets);
 }
 
 window.onload = mainAnimation;
-
-class Planet {
-    constructor(id, distance, radius) {
-        this.id = id;
-        this.distance = distance;
-        this.radius = radius;
-        this.dAlpha = 2 * Math.PI / 720;
-        this.alpha = 0;
-        this.satellites = [];
-    }
-
-    setDistance(distance) {
-        this.distance = distance;
-    }
-
-    setRadius(radius) {
-        this.radius = radius;
-    }
-
-    draw(ctx) {
-        const pos = this.getCurrentPosition();
-        
-        drawOrbit(ctx, 500, 400, this.distance);
-        drawCircle(ctx, "black", 500 + pos.x, 400 + pos.y, this.radius);
-        
-        this.updateAlpha();
-        this.drawSatellites(ctx);
-    }
-
-    drawSatellites(ctx) {
-        this.satellites.forEach((satellite) => {
-            const sPos = satellite.getCurrentPosition();
-            const pos = this.getCurrentPosition();
-            
-            drawOrbit(ctx, 500 + pos.x, 400 + pos.y, satellite.distance);
-            drawCircle(ctx, "blue", 500 + pos.x + sPos.x, 400 + pos.y + sPos.y, satellite.radius);
-            
-            satellite.updateAlpha();
-        })
-    }
-
-    updateAlpha() {
-        this.alpha -= this.dAlpha;
-        if ( Math.abs(this.alpha + 2  * Math.PI) < 0.001 ) {
-            this.alpha = 0;
-        }
-    }
-
-    getCurrentPosition() {
-        return {x : Math.cos(this.alpha) * this.distance, y : Math.sin(this.alpha) * this.distance};
-    }
-
-    addSatellite(satellite) {
-        this.satellites.push(satellite);
-    }
-}
-
-function drawCircle(context, color, x, y, radius) {
-    context.strokeStyle = color;
-    context.fillStyle = color; 
-    context.beginPath();
-    context.arc(x, y, radius, 0, 2 * Math.PI, true);
-    context.stroke();
-    context.fill();
-    context.closePath();   
-}
-
-function drawOrbit(context, x, y, distance) {
-    context.strokeStyle = "black";
-    context.beginPath();
-    context.arc(x, y, distance, 0, 2 * Math.PI, true);
-    context.stroke();
-    context.closePath();
-}
-
-
-function redraw(planets) {
-    context.clearRect(0,0,canvas.width, canvas.height);
-    
-    planets.forEach((planet) => {planet.draw(context)});
-
-    animationRequest = requestAnimationFrame(() => {redraw(planets)});  
-}
-
-function stopDrawing() {
-    cancelAnimationFrame(animationRequest);
-
-    context.clearRect(0,0,canvas.width, canvas.height);
-}
-
-
-
-
-

@@ -1,8 +1,12 @@
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+let animationRequest;
+
 const planetList = [];
 let planetNum = 0;
 
 function addPlanet() {
-    planetList.push(new Planet(666, 50, 10));
+    planetList.push(new Planet(50, 10, 2*Math.PI / 720, 0, 'white', false));
     planetNum++;
     setZeroAlpha();
     renderList();
@@ -11,9 +15,9 @@ function addPlanet() {
 
 function setZeroAlpha() {
     planetList.forEach((planet) => {
-        planet.alpha = 0
+        planet.alpha = 0 + planet.phase;
         planet.satellites.forEach((satellite) => {
-            satellite.alpha = 0;
+            satellite.alpha = 0 + satellite.phase;
         })
     });
 }
@@ -80,7 +84,7 @@ function setListeners() {
 
         let addSatelliteButton = document.getElementById(`addSatelliteButton_${i+1}`);
         addSatelliteButton.addEventListener('click', (event) => {
-            planetList[i].satellites.push(new Planet(10, 20, 3));
+            planetList[i].satellites.push(new Planet(20, 3, 2*Math.PI / 720, 0, 'grey', false));
             setZeroAlpha();
             renderList();
             setListeners();

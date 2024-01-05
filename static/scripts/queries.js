@@ -12,7 +12,7 @@ function getSignUp() {
       dataType: 'html',
       success: function(data) {
         // Handle the successful response
-          document.getElementById('template-container').innerHTML = data;
+          document.getElementById('data-container').innerHTML = data;
       },
       error: function(jqXHR, textStatus, errorThrown) {
         // Handle errors
@@ -30,10 +30,7 @@ function postSignUp() {
   const passwordErrorDiv = document.getElementById('password-error');
   usernameErrorDiv.innerHTML = ''; passwordErrorDiv.innerHTML = '';
 
-  const usernameFieldValue = usernameField.value;
-  const passwordFieldValue = passwordField.value;
-
-  let payload = {username: usernameFieldValue, password: passwordFieldValue};
+  let payload = {username: usernameField.value, password: passwordField.value};
 
   $.ajax({
     url: url + 'signup',
@@ -46,7 +43,7 @@ function postSignUp() {
       //document.getElementById('template-container').innerHTML = data;
       // console.log('POST /signup response handled');
       // window.location.href = '/editor'; //Izmenit
-      //getSignUp();
+      getSignUp();
     },
     error: function(jqXHR, textStatus, errorThrown) {
       // Handle errors
@@ -68,10 +65,7 @@ function postSignIn() {
   const passwordErrorDiv = document.getElementById('password-error');
   usernameErrorDiv.innerHTML = ''; passwordErrorDiv.innerHTML = '';
 
-  const usernameFieldValue = usernameField.value;
-  const passwordFieldValue = passwordField.value;
-
-  let payload = {username: usernameFieldValue, password: passwordFieldValue};
+  let payload = {username: usernameField.value, password: passwordField.value};
 
   $.ajax({
     url: url + 'signin',
@@ -104,7 +98,7 @@ function getSignIn() {
     dataType: 'html',
     success: function(data) {
       // Handle the successful response
-        document.getElementById('template-container').innerHTML = data;
+        document.getElementById('data-container').innerHTML = data;
     },
     error: function(jqXHR, textStatus, errorThrown) {
       // Handle errors
@@ -113,13 +107,26 @@ function getSignIn() {
   });
 }
 
-//PROFILE GET
-
-document.getElementById('profileLink').addEventListener('click', function(event) {
-  event.preventDefault();
-  getProfile();
+//DELIGATING EVENTS
+document.getElementById('data-container').addEventListener('click', function(event) {
+  switch (event.target.id) {
+    case 'profile-link':
+      event.preventDefault();
+      getProfile();
+      break;
+    case 'logout-link':
+      event.preventDefault();
+      getLogout();
+      break;
+    case 'signin-link':
+      event.preventDefault();
+      getSignIn();
+      break;
+  }
 });
-  
+
+
+//PROFILE GET
 function getProfile() {
   url = getCurrentUrl();
   
@@ -129,7 +136,7 @@ function getProfile() {
       dataType: 'html',
       success: function(data) {
         // Handle the successful response
-          document.getElementById('template-container').innerHTML = data;
+          document.getElementById('data-container').innerHTML = data;
       },
       error: function(jqXHR, textStatus, errorThrown) {
         // Handle errors
@@ -140,12 +147,6 @@ function getProfile() {
 
 
 // LOGOUT GET
-
-document.getElementById('logoutLink').addEventListener('click', function(event) {
-  event.preventDefault();
-  getLogout();
-});
-
 function getLogout() {
   url = getCurrentUrl();
 
@@ -156,12 +157,41 @@ function getLogout() {
     success: function(data) {
       // Handle the successful response
       //document.getElementById('template-container').innerHTML = data;
-      document.getElementById('template-container').innerHTML = data;
+      document.getElementById('data-container').innerHTML = data;
     },
     error: function(jqXHR, textStatus, errorThrown) {
       // Handle errors
       console.error('Error:', textStatus, errorThrown);
     }
-});
+  });
+}
+
+function postSaveSystem() {
+  url = getCurrentUrl();
+  let systemName = document.getElementById('sname').value;
+  let saveErrorDiv = document.getElementById('save-error');
+
+  let planetsSerialized = [];
+  planetList.forEach(planet => {
+    planetsSerialized.push(planet.serialize());
+  });
+  let payload = {name: systemName, userId: '', planets: planetsSerialized};
+
+  $.ajax({
+    url: url + '/savesystem',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(payload),
+    dataType: 'json',
+    success: function(data) {
+      saveErrorDiv.innerHTML = 'System was saved succesfully!'
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      // Handle errors
+      let errorJSON = JSON.parse(jqXHR.responseText);
+      // console.log(errorJSON);
+      saveErorrDiv.innerHTML = errorJSON.systemName;
+    }
+  });
 }
 

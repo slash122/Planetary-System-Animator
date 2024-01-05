@@ -44,5 +44,21 @@ function checkUser(req, res, next) {
     }
 }
 
+async function  _checkUser(req) {
+    const token = req.cookies.jwt;
 
-module.exports = {requireAuth, checkUser};
+    if (token) {
+        decodedToken = jwt.verify(token, 'KURWA KURWA JA PIERDOLE')
+        try {
+            const decodedToken =  jwt.verify(token, 'KURWA KURWA JA PIERDOLE');
+            const user = await User.findById(decodedToken.id);
+            return user;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    }
+    return null;
+}
+
+module.exports = {requireAuth, checkUser, _checkUser};

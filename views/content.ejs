@@ -1,0 +1,21 @@
+<div id="header">
+    <a id="profile-link" href="">Profile</a>
+    <a id="editor-link" href="/editor" >Editor</a>
+    
+    <% if (user) { %>
+    <a id="logout-link" href="">Log out</a>
+    <% } else { %>
+    <a id="signin-link" href="">Sign in</a>
+    <% } %>
+</div>
+<div id="template-container"> 
+    <% if (toRender === 'sign-in') { %>
+        <%- include('sign-in') %>
+    <% } else if (toRender === 'sign-up') { %>
+        <%- include('sign-up') %>
+    <% } else if (toRender === 'profile') { %>
+        <%- include('profile') %>
+    <% } %>
+    <!-- include sign-in by default -->
+</div>
+
