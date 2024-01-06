@@ -109,6 +109,7 @@ function getSignIn() {
 
 //DELIGATING EVENTS
 document.getElementById('data-container').addEventListener('click', function(event) {
+  //Delegating link click events
   switch (event.target.id) {
     case 'profile-link':
       event.preventDefault();
@@ -123,7 +124,14 @@ document.getElementById('data-container').addEventListener('click', function(eve
       getSignIn();
       break;
   }
+
+  //Delegating profile button click events
+  if (event.target.classList.contains('profile-modify-button')) {
+    const dataIndex = event.target.getAttribute('data-index');
+    getEditorDisplay(dataIndex);
+  }
 });
+
 
 
 //PROFILE GET
@@ -165,6 +173,30 @@ function getLogout() {
     }
   });
 }
+
+function getEditorDisplay(animationIdx) {
+  let url = getCurrentUrl();
+
+  const queryString = $.param({animationIdx : animationIdx});
+  window.location.href = '/editor/display?' + queryString;
+
+
+  // $.ajax({
+  //   url: url + 'editor/display?' + queryString,
+  //   method: 'GET',
+  //   dataType: 'html',
+  //   success: function(data) {
+  //     //document.getElementById('data-container').innerHTML = data;
+  //     window.location.href = '/test'
+  //   },
+  //   error: function(jqXHR, textStatus, errorThrown) {
+  //     // Handle errors
+  //     console.error('Error:', textStatus, errorThrown);
+  //   }
+  // });
+}
+
+
 
 function postSaveSystem() {
   url = getCurrentUrl();

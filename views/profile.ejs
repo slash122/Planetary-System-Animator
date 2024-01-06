@@ -3,11 +3,11 @@
     <% if (userSystems) { %>
         <% let count = 1; %>
         <% userSystems.forEach((system) => { %>
-            <div>System <%= count %>:  
-                <%= system.name %><br>
-                <input type="button" value="modify/display">
-                <input type="button" value="delete">
-            </div>
+            <div class="system-list-node">System <%= count %>:  
+                <p id="name-<%=count%>"><%= system.name %></p><br>
+                <input class="profile-modify-button" id="display-button-<%=count%>" data-index="<%=count%>" type="button" value="modify/display">
+                <input class="profile-delete-button" id="delete-button-<%=count%>" data-index="<%=count%>" type="button" value="delete">
+            </div>  
             <% count++ %>
         <% }); %>
     <% } %>

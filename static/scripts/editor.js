@@ -2,8 +2,9 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 let animationRequest;
 
-const planetList = [];
-let planetNum = 0;
+
+let planetList = window.planetList;
+let planetNum = window.planetNum;
 
 function addPlanet() {
     planetList.push(new Planet(50, 10, 2*Math.PI / 720, 0, 'white', false));
@@ -26,7 +27,7 @@ function renderList() {
     const container = document.getElementById('editor-planet-list');
     container.innerHTML = '';
     let count = 1;
-    container.innerHTML = '';
+    console.log(planetList);
     planetList.forEach((planet) => {
         let planetDiv = `<div class="planetDiv">
             <p class="planetCount">${count}</p>
@@ -121,4 +122,8 @@ function setSatelliteListeners(planet) {
     }
 }
 
+renderList();
+setListeners();
 redraw(planetList);
+
+

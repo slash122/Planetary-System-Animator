@@ -35,6 +35,15 @@
         </div>
     </div>
     <script src="/scripts/planet.js"></script>
+    <% if (systemToRender) { %>
+        <script> const toRender = '<%= systemToRender %>'; </script>
+        <script src="/scripts/editorLoadAnimation.js"></script>
+    <% } else { %>
+    <script>
+        window.planetList = [];
+        window.planetNum;
+    </script> 
+    <% } %>
     <script src="/scripts/editor.js"></script>
     <script src="/scripts/queries.js"></script>
 </body>
