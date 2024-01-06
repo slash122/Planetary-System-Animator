@@ -127,6 +127,8 @@ app.get('/profile', /*requireAuth,*/ async function(req, res) {
 });
 
 app.get('/editor', function(req, res) {
+  res.locals.systemToRender = null;
+  
   res.render('editor');
 });
 
@@ -134,7 +136,7 @@ app.get('/logout', function(req, res) {
   res.cookie('jwt', '', {maxAge: 1});
   res.redirect('/signin');
 });
-
+    
 app.post('/editor/savesystem', async function(req, res) {
   try {
     let system = req.body;
@@ -152,6 +154,33 @@ app.post('/editor/savesystem', async function(req, res) {
     res.status(400).json({systemName: 'Could not save system'});
   }  
 });
+
+app.get('/editor/display', async function(req, res) {
+  const idx = req.query.animationIdx;
+  // let user = await _checkUser(req);
+  // let userSystems = await System.find({userId: user._id});
+  // console.log(JSON.stringify(userSystems[idx-1].planets));
+  res.locals.systemToRender = idx; //JSON.stringify(userSystems[idx-1].planets);
+
+  res.render('editor');
+})
+
+app.get('/editor/loadAnimation', async function(req, res) {
+  const idx = req.query.animationIdx;
+  
+  let user = await _checkUser(req);
+  let userSystems = await System.find({userId: user._id});
+  // console.log(userSystems[idx-1]);
+  res.status(200).json(userSystems[idx-1].planets);
+})
+
+app.post('/profile/delete', async function(req, res) {
+  const idx = req.body.toDelete;
+  let user = await _checkUser(req);
+  let userSystems = await System.find({userId: user._id});
+  await System.deleteOne({_id: userSystems[idx]._id });
+  res.status(200).json({message: 'Succesful delete!'});
+})
 
 app.listen(port);
 console.log('Server started at http://localhost:' + port);

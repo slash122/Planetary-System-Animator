@@ -109,6 +109,7 @@ function getSignIn() {
 
 //DELIGATING EVENTS
 document.getElementById('data-container').addEventListener('click', function(event) {
+  //Delegating link click events
   switch (event.target.id) {
     case 'profile-link':
       event.preventDefault();
@@ -123,7 +124,20 @@ document.getElementById('data-container').addEventListener('click', function(eve
       getSignIn();
       break;
   }
+
+  //Delegating profile button click events
+  if (event.target.classList.contains('profile-modify-button')) {
+    const dataIndex = event.target.getAttribute('data-index');
+    getEditorDisplay(dataIndex);
+  }
+
+  if(event.target.classList.contains('profile-delete-button')) {
+    const dataIndex = event.target.getAttribute('data-index');
+    //console.log(dataIndex);
+    postProfileDelete(dataIndex-1);
+  }
 });
+
 
 
 //PROFILE GET
@@ -162,6 +176,35 @@ function getLogout() {
     error: function(jqXHR, textStatus, errorThrown) {
       // Handle errors
       console.error('Error:', textStatus, errorThrown);
+    }
+  });
+}
+
+//DISPLAY SYSTEM IN EDITOR
+function getEditorDisplay(animationIdx) {
+  let url = getCurrentUrl();
+
+  const queryString = $.param({animationIdx : animationIdx});
+  window.location.href = '/editor/display?' + queryString;
+}
+
+//DELETE USER'S SYSTEM
+function postProfileDelete(animationIdx) {
+  let url = getCurrentUrl();
+
+  const payload = {toDelete: animationIdx};
+
+  $.ajax({
+    url: url + 'profile/delete',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(payload),
+    dataType: 'json',
+    success: function(data) {
+      getProfile();
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      
     }
   });
 }
