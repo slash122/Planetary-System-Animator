@@ -174,5 +174,13 @@ app.get('/editor/loadAnimation', async function(req, res) {
   res.status(200).json(userSystems[idx-1].planets);
 })
 
+app.post('/profile/delete', async function(req, res) {
+  const idx = req.body.toDelete;
+  let user = await _checkUser(req);
+  let userSystems = await System.find({userId: user._id});
+  await System.deleteOne({_id: userSystems[idx]._id });
+  res.status(200).json({message: 'Succesful delete!'});
+})
+
 app.listen(port);
 console.log('Server started at http://localhost:' + port);

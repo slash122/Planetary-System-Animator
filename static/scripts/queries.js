@@ -130,6 +130,12 @@ document.getElementById('data-container').addEventListener('click', function(eve
     const dataIndex = event.target.getAttribute('data-index');
     getEditorDisplay(dataIndex);
   }
+
+  if(event.target.classList.contains('profile-delete-button')) {
+    const dataIndex = event.target.getAttribute('data-index');
+    //console.log(dataIndex);
+    postProfileDelete(dataIndex-1);
+  }
 });
 
 
@@ -174,29 +180,34 @@ function getLogout() {
   });
 }
 
+//DISPLAY SYSTEM IN EDITOR
 function getEditorDisplay(animationIdx) {
   let url = getCurrentUrl();
 
   const queryString = $.param({animationIdx : animationIdx});
   window.location.href = '/editor/display?' + queryString;
-
-
-  // $.ajax({
-  //   url: url + 'editor/display?' + queryString,
-  //   method: 'GET',
-  //   dataType: 'html',
-  //   success: function(data) {
-  //     //document.getElementById('data-container').innerHTML = data;
-  //     window.location.href = '/test'
-  //   },
-  //   error: function(jqXHR, textStatus, errorThrown) {
-  //     // Handle errors
-  //     console.error('Error:', textStatus, errorThrown);
-  //   }
-  // });
 }
 
+//DELETE USER'S SYSTEM
+function postProfileDelete(animationIdx) {
+  let url = getCurrentUrl();
 
+  const payload = {toDelete: animationIdx};
+
+  $.ajax({
+    url: url + 'profile/delete',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(payload),
+    dataType: 'json',
+    success: function(data) {
+      getProfile();
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      
+    }
+  });
+}
 
 function postSaveSystem() {
   url = getCurrentUrl();
