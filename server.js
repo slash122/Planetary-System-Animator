@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //----
-//handle error
+//handle sign-in sign-up errors
 const handleErrors = (err) => {
   console.log(err.message, err.code);
   let errorsResponse = {username: '', password: ''};

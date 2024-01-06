@@ -221,7 +221,7 @@ function postSaveSystem() {
   let payload = {name: systemName, userId: '', planets: planetsSerialized};
 
   $.ajax({
-    url: url + '/savesystem',
+    url: '/editor/savesystem',
     method: 'POST',
     contentType: 'application/json',
     data: JSON.stringify(payload),

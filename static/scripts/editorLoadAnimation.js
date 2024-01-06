@@ -3,8 +3,14 @@ window.planetList = [];
 
 function addLoadedPlanets( loadedData) {
     loadedData.forEach(planet => {
-        window.planetList.push(new Planet(planet.distance, planet.radius, planet.dAlpha, 
-                            planet.phase, planet.color, planet.hasRings));
+        const readyPlanet = new Planet(planet.distance, planet.radius, planet.dAlpha, planet.phase, planet.color, planet.hasRings);
+        
+        planet.satellites.forEach(satellite => {
+            readyPlanet.satellites.push(new Planet(satellite.distance, satellite.radius, satellite.dAlpha,
+                                                    satellite.phase, satellite.color, satellite.hasRings));
+        }); 
+        
+        window.planetList.push(readyPlanet);
     });
 }
 
