@@ -11,6 +11,7 @@ body {
     box-sizing: border-box;
     width: 55%;
     min-height: 100vh;
+    background-color: black;
 }
 
 #canvas {
@@ -19,10 +20,12 @@ body {
     height: auto;
 }
 
-#data-container {
-    background-color: rgb(202, 202, 202);
+  
+  #data-container {
     margin-left: 55%;
-}
+    background-color: red;
+  }
+  
 
 #canvas-container {
     position: fixed;
@@ -52,16 +55,73 @@ body {
 /* Forms */
 
 .form-container {
-    width: 500px;
-    margin: 300px auto;
-    align-items: center;
-    justify-content: center;
-    background-color: tan;
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: calc(100% - 10px);
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  b/* Стили для кнопок */
+
+button[type="submit"],
+input[type="button"] {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  text-decoration: none;
 }
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+input[type="button"] {
+  background-color: #444;
+  color: #fff;
+  margin-top: 10px;
+}
+
+input[type="button"]:hover {
+  background-color: #333;
+}
+
 
 .satelliteDiv {
     border-style: solid;
     border-width: 2px;
     border-radius: 5px;
     border-color: red;
+}
+.profile{
+    background-color: red;
 }
