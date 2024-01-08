@@ -11,8 +11,7 @@ body {
     box-sizing: border-box;
     width: 55%;
     min-height: 100vh;
-    background-color: black;
-    background-color: black;
+    background-color: grey; 
 }
 
 #canvas {
@@ -31,7 +30,7 @@ body {
   }
   
     #data-container {
-    background-image: url('../assets/space.gif');
+    /* background-image: url('../assets/space.gif'); */
     background-size: cover;
     animation: spaceAnimation 60s linear infinite;
     margin-left: 55%;
