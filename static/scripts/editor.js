@@ -2,15 +2,16 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 let animationRequest;
 
-const planetList = [];
-let planetNum = 0;
+const planetList = window.planetList;
+// let planetNum;
 
 function addPlanet() {
     planetList.push(new Planet(50, 10, 2*Math.PI / 720, 0, 'white', false));
-    planetNum++;
+    //planetNum++;
     setZeroAlpha();
     renderList();
     setListeners();
+    //console.log(planetList);
 }
 
 function setZeroAlpha() {
@@ -26,8 +27,8 @@ function renderList() {
     const container = document.getElementById('editor-planet-list');
     container.innerHTML = '';
     let count = 1;
-    container.innerHTML = '';
-    planetList.forEach((planet) => {
+    console.log(planetList);
+    planetList.forEach( planet => {
         let planetDiv = `<div class="planetDiv">
             <p class="planetCount">${count}</p>
             <input type="button" value="Delete planet" id="deletePlanetButton_${count}">
@@ -58,7 +59,7 @@ function renderSatelliteList(planet, container) {
 }
 
 function setListeners() {
-    for (let i = 0; i < planetNum; i++) {
+    for (let i = 0; i < planetList.length; i++) {
         let deleteButton = document.getElementById(`deletePlanetButton_${i+1}`);
         deleteButton.addEventListener('click', (event) => {
             planetList.splice(i, 1);
@@ -121,4 +122,9 @@ function setSatelliteListeners(planet) {
     }
 }
 
+renderList();
+setListeners();
+
 redraw(planetList);
+
+

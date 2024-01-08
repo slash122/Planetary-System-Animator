@@ -12,6 +12,7 @@ body {
     width: 55%;
     min-height: 100vh;
     background-color: black;
+    background-color: black;
 }
 
 #canvas {
@@ -114,7 +115,6 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0056b3;
 }
-
 
 input[type="button"] {
   background-color: #444;
