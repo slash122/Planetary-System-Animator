@@ -18,7 +18,7 @@ $.ajax({
     url: '/editor/loadAnimation?animationIdx=' + toRender,
     method: 'GET',
     dataType: 'json',
-    async: false, //PIZDEC PIZDEC PIZDEC PIZDEC PIZDEC 5 chasow projebal
+    async: false,
     success: function(data) {
         addLoadedPlanets(data);
     },  
