@@ -1,5 +1,5 @@
 <% if (user) { %>
-    <h1>You are logged in as <%= user.username %>.</h1>
+    <h1 class="signIntag">You are logged in as <%= user.username %>.</h1>
 <% } else { %>
 <div class="form-container">
     <form class="user-form">
@@ -9,7 +9,7 @@
         <div id="password-error"></div>
         <input type="button" value="submit" onclick="postSignIn()">
     </form>
-    <h1>SIGN IN FORM</h1>
+    <h1 class="MAinS">SIGN IN</h1>
     <input type="button" value="Don't have an account? Sign Up" onclick="getSignUp()">
 </div>
 <% } %>

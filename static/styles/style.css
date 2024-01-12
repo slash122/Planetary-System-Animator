@@ -30,7 +30,7 @@ body {
   }
   
     #data-container {
-    /* background-image: url('../assets/space.gif'); */
+    background-image: url('../assets/space2.gif');
     background-size: cover;
     animation: spaceAnimation 60s linear infinite;
     margin-left: 55%;
@@ -91,7 +91,6 @@ body {
     border: 1px solid #ccc;
   }
   
-  b/* Стили для кнопок */
 
 button[type="submit"],
 input[type="button"] {
@@ -134,4 +133,75 @@ input[type="button"]:hover {
 }
 .profile{
     background-color: red;
+}
+#sname {
+    width: 200px;
+    margin-bottom: 5px;
+  }
+.SystemName{
+    color: purple;
+    font-size: 30px;
+    margin-top: 20px;
+}
+#username-error{
+    color: red;
+}
+#password-error{
+    color:red;
+}
+.profiletag{
+    color: purple;
+    font-size: 30px;
+}
+.signIntag{
+    color: purple;
+    font-size: 30px;
+}
+.MAinS{
+    font-size: 30px;
+}
+.editortxt{
+    color: purple;
+    font-size: 30px;
+}
+.username{
+    color: purple;
+    font-size: 30px;
+}
+.systemmm{
+    color: purple;
+    font-size: 20px;
+}
+.MainS2{
+    font-size: 30px;
+}
+#header {
+    background-color: #0c0c0c;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#header a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+#header a:hover {
+    color: #2e86c1;
+}
+
+/* TODO: Исправить */
+#logout-link {
+    display: <% if (user) { %>inline<% } else { %>none<% } %>; 
+}
+
+#profile-link,
+#editor-link,
+#signin-link,
+#logout-link {
+    display: inline-block;
 }
