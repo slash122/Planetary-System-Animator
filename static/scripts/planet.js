@@ -68,8 +68,13 @@ class Planet {
     }
 
     serialize() {
+        let serializedSatellites = [];
+        this.satellites.forEach(satellite => {
+            serializedSatellites.push({distance: satellite.distance, radius: satellite.radius, dAlpha: satellite.dAlpha, 
+                phase: satellite.phase, color: satellite.color, hasRings: satellite.hasRings});
+        });
         return {distance: this.distance, radius: this.radius, dAlpha: this.dAlpha, 
-            phase: this.phase, color: this.color, hasRings: this.hasRings, satellites: []};
+            phase: this.phase, color: this.color, hasRings: this.hasRings, satellites: serializedSatellites};
     }
 }
 
