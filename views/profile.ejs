@@ -4,9 +4,9 @@
         <% let count = 1; %>
         <% userSystems.forEach((system) => { %>
             <div class="systemmm" class="system-list-node">System <%= count %>:  
-                <p id="name-<%=count%>"><%= system.name %></p><br>
-                <input class="profile-modify-button" id="display-button-<%=count%>" data-index="<%=count%>" type="button" value="modify/display">
-                <input class="profile-delete-button" id="delete-button-<%=count%>" data-index="<%=count%>" type="button" value="delete">
+                <%= system.name %><br>
+                <input class="profile-modify-button" data-index="<%=count%>" type="button" value="modify/display">
+                <input class="profile-delete-button" data-index="<%=count%>" type="button" value="delete">
             </div>  
             <% count++ %>
         <% }); %>

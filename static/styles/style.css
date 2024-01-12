@@ -194,8 +194,9 @@ input[type="button"]:hover {
     color: #2e86c1;
 }
 
+/* TODO: Исправить */
 #logout-link {
-    display: <% if (user) { %>inline<% } else { %>none<% } %>;
+    display: <% if (user) { %>inline<% } else { %>none<% } %>; 
 }
 
 #profile-link,
