@@ -1,15 +1,21 @@
 <% if (user) { %>
+<div class="centered-wrapper">    
     <h1 class="signIntag">You are logged in as <%= user.username %>.</h1>
+</div>   
 <% } else { %>
 <div class="form-container">
-    <form class="user-form">
-        <input id="username-field" type="text"><br>
-        <div id="username-error"></div>
-        <input id="password-field" type="text"><br>
-        <div id="password-error"></div>
-        <input type="button" value="submit" onclick="postSignIn()">
-    </form>
     <h1 class="MAinS">SIGN IN</h1>
-    <input type="button" value="Don't have an account? Sign Up" onclick="getSignUp()">
+    <form class="user-form">
+        <label for="username-field">Username</label>
+        <input id="username-field" type="text"><br>
+        <div id="username-error"></div><br>
+        
+        <label for="password-field">Password</label>
+        <input id="password-field" type="password"><br>
+        <div id="password-error"></div><br>
+        
+        <input type="button" value="Submit" onclick="postSignIn()">
+    </form>
+    <input class="redirect-button" type="button" value="Don't have an account? Sign Up" onclick="getSignUp()">
 </div>
 <% } %>

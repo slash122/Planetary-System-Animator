@@ -18,9 +18,10 @@
                 <a href="/">Main page</a>
             </div>
             <div id="template-container"> 
+                <div class="centered-wrapper">
                 <% if (user) { %> 
                 <form>
-                    <label for="sname" class="SystemName">System name</label><br>
+                    <label for="sname" class="SystemName">Save system by name:</label>
                     <input type="text" id="sname" name="sname">
                     <div id="save-error"></div>
                     <input type="button" value="Save system" onclick="postSaveSystem()">
@@ -31,6 +32,7 @@
 
                 </div>
                 <input type="button" value="Add planet" onclick="addPlanet()">
+                </div>
             </div>
         </div>
     </div>

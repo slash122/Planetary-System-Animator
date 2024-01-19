@@ -227,7 +227,7 @@ function postSaveSystem() {
     data: JSON.stringify(payload),
     dataType: 'json',
     success: function(data) {
-      saveErrorDiv.innerHTML = 'System was saved succesfully!'
+      saveErrorDiv.innerHTML = 'System has been saved succesfully!'
     },
     error: function(jqXHR, textStatus, errorThrown) {
       // Handle errors
